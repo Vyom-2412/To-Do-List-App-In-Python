@@ -6,7 +6,9 @@ import sqlite3 as sq
     
 root = tk.Tk()
 root.title('To-Do List')
-root.geometry("400x250+500+300")
+root.geometry("500x450+750+250")
+root.resizable(0,0)
+root.configure(bg = "#FAEBD7")
 
 connection = sq.connect('todo.db')
 cur = connection.cursor()
@@ -62,25 +64,27 @@ def retrieveDB():
       
 #------------------------------- Formatting--------------------------------
 
-task_title_label = ttk.Label(root, text='Enter task title: ')
-entry1 = ttk.Entry(root, width=21)
-lb = tk.Listbox(root, height=11, selectmode='SINGLE')
-add_task_button = ttk.Button(root, text='Add task', width=20, command=addTask)
-del_task_button = ttk.Button(root, text='Delete', width=20, command=delOne)
-del_all_task_button = ttk.Button(root, text='Delete all', width=20, command=deleteAll)
-exit_button = ttk.Button(root, text='Exit', width=20, command=bye)
+header_label = ttk.Label(root,text = "The To-Do List", font = ("Brush Script MT", "30"), background = "#FAEBD7", foreground = "#8B4513")  
+task_title_label = ttk.Label(root, text='Enter task title: ', background="#FAEBD7",font = ("Consolas", "11", "bold"), foreground="#000000")
+entry1 = ttk.Entry(root, width=18)
+lb = tk.Listbox(root, width=26,height=17, selectmode='SINGLE',background="#FFFFFF",foreground="#000000", selectbackground = "#CD853F", selectforeground = "#FFFFFF")
+add_task_button = ttk.Button(root, text='Add task', width=24, command=addTask)
+del_task_button = ttk.Button(root, text='Delete', width=24, command=delOne)
+del_all_task_button = ttk.Button(root, text='Delete all', width=24, command=deleteAll)
+exit_button = ttk.Button(root, text='Exit', width=24, command=bye)
 
 retrieveDB()
 listUpdate()
 
 #Place geometry
-task_title_label.place(x=50, y=50)
-entry1.place(x=50, y=80)
-add_task_button.place(x=50, y=110)
-del_task_button.place(x=50, y=140)
-del_all_task_button.place(x=50, y=170)
-exit_button.place(x=50, y =200)
-lb.place(x=220, y = 50)
+header_label.pack(padx = 20, pady = 20)
+task_title_label.place(x = 70, y = 120)
+entry1.place(x = 70, y = 160)  
+add_task_button.place(x=70, y=200)
+del_task_button.place(x=70, y=240)
+del_all_task_button.place(x=70, y=280)
+exit_button.place(x=70, y =320)
+lb.place(x=270, y = 100)
 root.mainloop()
 
 connection.commit()
